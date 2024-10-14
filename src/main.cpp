@@ -13,8 +13,12 @@
 #include "drivers/display/TouchDisplay.h"
 #include "drivers/spiffs-driver/SPIFFSDriver.h"
 
+// App
+#include "ui/App.h"
+
 TouchDisplay display;
 SPIFFSDriver spiffsDriver;
+TipApp* app = nullptr;
 
 void mx_setup();
 void mx_loop();
@@ -54,13 +58,14 @@ void setup() {
   initHardwares();
   initDrivers();
 
-  mx_setup();
+  app = new TipApp();
+  app->start();
 
   Serial.println("Tips is now started");
 }
 
 void loop() {
-  mx_loop();
+  app->update();
   display.update();
 
   keepSerialAlive();
