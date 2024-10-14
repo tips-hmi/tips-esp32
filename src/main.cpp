@@ -37,7 +37,7 @@ void initHardwares() {
 void initDrivers() {
   display.begin();
   display.setBrightness(50);
-  display.setRotation(3);
+  display.setRotation(2);
 
   spiffsDriver.begin('A');
 }
