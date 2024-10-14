@@ -3,6 +3,8 @@
 #include "TeslaVehicle.h"
 #include "definitions.h"
 
+bool __time_has_been_set = false;
+
 void TeslaCANMessageProcessor::process(uint16_t messageId,
                                        const uint8_t* frame) {
   switch (messageId) {
@@ -42,6 +44,16 @@ void TeslaCANMessageProcessor::process(uint16_t messageId,
     case ID292BMS_SOC: {
       auto value = SOCmin292;
       _vehicle.setStateOfCharge(value);
+      break;
+    }
+    case ID318SystemTimeUTC: {
+      if (!__time_has_been_set) {
+        time_t t = CANMessageEncoder::extract_time(frame);
+        struct timeval now = {.tv_sec = t};
+        settimeofday(&now, NULL);
+        __time_has_been_set = true;
+        log_i("Time has been set to %d", t);
+      }
       break;
     }
     case ID321VCFRONT_sensors: {
