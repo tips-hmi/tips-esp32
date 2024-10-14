@@ -17,7 +17,7 @@ class Scene : public Component {
   void deactivate();
 
   void show(lv_scr_load_anim_t animation = LV_SCR_LOAD_ANIM_FADE_ON,
-            uint32_t duration = 500);
+            uint32_t duration = 250);
 
   void update() override;
 
