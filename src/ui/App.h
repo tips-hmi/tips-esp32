@@ -2,22 +2,18 @@
 
 #include <mx_ui.h>
 
-#include "ui/scenes/ClockScene.h"
-#include "ui/scenes/WiFiConnectScene.h"
+#include "ui/scenes/MainScene.h"
+#include "vehicle/TeslaVehicle.h"
 
 Scene *scene;
+TeslaVehicle vehicle;
 
 class TipApp : public Application {
  protected:
   void onInit() override {
     Application::onInit();
 
-    static WiFiConnectScene *connectScene = new WiFiConnectScene();
-    connectScene->show();
-    WiFiConnection::singleton()->begin("Henry's iPhone 14 Pro", "13913954971",
-                                       []() {
-                                         scene = new ClockScene();
-                                         scene->show();
-                                       });
+    scene = new MainScene(vehicle);
+    scene->show();
   }
 };

@@ -45,7 +45,7 @@ void keepSerialAlive() {
   auto now = millis();
   if (now - __lastSerialUpdateTime > 5 * 1000) {
     __lastSerialUpdateTime = now;
-    Serial.println('.');
+    Serial.println(esp_get_free_heap_size());
   }
 }
 

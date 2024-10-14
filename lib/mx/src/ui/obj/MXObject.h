@@ -33,7 +33,28 @@ class MXObject {
     return *this;
   }
 
+  MXObject& line(lv_point_t p1, lv_point_t p2) {
+    _internalObj = lv_line_create(_internalObj);
+    lv_point_t* line_points = new lv_point_t[2]{p1, p2};
+    lv_line_set_points(_internalObj, line_points, 2);
+    return *this;
+  }
+
+  MXObject& hr_line(lv_coord_t width, lv_coord_t y) {
+    line(lv_point_t{0, y}, lv_point_t{width, y});
+    return *this;
+  }
+
   MXObject& arc() {
+    _internalObj = lv_arc_create(_internalObj);
+    lv_arc_set_bg_angles(_internalObj, 0, 360);
+    remove_style(NULL, LV_PART_KNOB);
+    remove_style(NULL, LV_PART_MAIN);
+    non_clickable();
+    return *this;
+  }
+
+  MXObject& progress_arc() {
     _internalObj = lv_arc_create(_internalObj);
     lv_arc_set_bg_angles(_internalObj, 0, 360);
     remove_style(NULL, LV_PART_KNOB);
@@ -80,9 +101,19 @@ class MXObject {
     return *this;
   }
 
+  MXObject& text_align(lv_text_align_t align) {
+    lv_obj_set_style_text_align(_internalObj, align, LV_PART_MAIN);
+    return *this;
+  }
+
   /* Size */
   MXObject& size(lv_coord_t width, lv_coord_t height) {
     lv_obj_set_size(_internalObj, width, height);
+    return *this;
+  }
+
+  MXObject& size(lv_coord_t value) {
+    lv_obj_set_size(_internalObj, value, value);
     return *this;
   }
 
@@ -228,10 +259,38 @@ class MXObject {
     return *this;
   }
 
+  // Line specific
+  MXObject& line_color(uint32_t color) {
+    lv_obj_set_style_line_color(_internalObj, lv_color_hex(color),
+                                LV_PART_MAIN);
+    return *this;
+  }
+
+  MXObject& line_width(lv_coord_t width) {
+    lv_obj_set_style_line_width(_internalObj, width, LV_PART_MAIN);
+    return *this;
+  }
+
   // Arc specific
   MXObject& arc_color(uint32_t color) {
     lv_obj_set_style_arc_color(_internalObj, lv_color_hex(color),
                                LV_PART_INDICATOR);
+    return *this;
+  }
+
+  MXObject& arc_bg_color(uint32_t color) {
+    lv_obj_set_style_arc_color(_internalObj, lv_color_hex(color), LV_PART_MAIN);
+    return *this;
+  }
+
+  MXObject& arc_width(lv_coord_t width) {
+    lv_obj_set_style_arc_width(_internalObj, width, LV_PART_INDICATOR);
+    lv_obj_set_style_arc_width(_internalObj, width, LV_PART_MAIN);
+    return *this;
+  }
+
+  MXObject& arc_rotation(lv_coord_t rotation) {
+    lv_arc_set_rotation(_internalObj, rotation);
     return *this;
   }
 
