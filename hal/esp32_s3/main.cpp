@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include <SPIFFS.h>
-#include <WiFi.h>
 #include <lvgl.h>
 
 // Always include `device_conf.h` first
@@ -13,9 +12,6 @@
 // Drivers
 #include "drivers/display/TouchDisplay.h"
 #include "drivers/spiffs-driver/SPIFFSDriver.h"
-
-// HAL Implementations
-#include "wifi/WiFiConnection.h"
 
 TouchDisplay display;
 SPIFFSDriver spiffsDriver;
