@@ -37,7 +37,7 @@ void initHardwares() {
 void initDrivers() {
   display.begin();
   display.setBrightness(66);
-  display.setRotation(1);
+  display.setRotation(3);
 
   spiffsDriver.begin('A');
 }
@@ -53,6 +53,7 @@ void keepSerialAlive() {
 
 void setup() {
   delay(200);
+
   Serial.begin(115200);
   Serial.println("Welcome to Tips");
 

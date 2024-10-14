@@ -93,6 +93,8 @@ class MainScene : public Scene {
   void onUpdate() override {
     Scene::onUpdate();
 
+    timeLabel->text(_formatTime().c_str());
+
     temperatureLabel->text(
         _formatTemperature(_vehicle.getTemperatureAmbient()).c_str());
 
@@ -139,6 +141,15 @@ class MainScene : public Scene {
 
  private:
   const TeslaVehicle &_vehicle;
+
+  const String _formatTime() const {
+    time_t now = time(nullptr);
+    struct tm *timeInfo = localtime(&now);
+    int hour = (timeInfo->tm_hour + 8) % 24;  // Adjust for UTC+8
+    int min = timeInfo->tm_min;
+    return (hour < 10 ? "0" : "") + String(hour) + ":" + (min < 10 ? "0" : "") +
+           String(min);
+  }
 
   const String _formatSpeed(uint16_t value) const { return String(value); }
 
