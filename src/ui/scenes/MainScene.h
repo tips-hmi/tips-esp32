@@ -37,28 +37,31 @@ class MainScene : public Scene {
     timeLabel = &mx(this)
                      ->label()
                      .text_color(theme.secondaryTextColor)
+                     .text_letter_space(2)
                      .x(64)
                      .y(60)
-                     .font(&lv_font_orbitron_medium_24)
-                     .text("12:54");
+                     .font(&lv_font_orbitron_medium_24);
     temperatureLabel = &mx(this)
                             ->label()
                             .text_color(theme.secondaryTextColor)
-                            .x(214)
+                            .text_letter_space(2)
+                            .x(194)
                             .y(60)
-                            .w(80)
+                            .w(100)
                             .text_align(LV_TEXT_ALIGN_RIGHT)
                             .font(&lv_font_orbitron_medium_24);
     mx(this)->hr_line(256, 100).center_x().line_color(theme.secondaryTextColor);
     speedLabel = &mx(this)
                       ->label()
                       .text_color(theme.textColor)
+                      .text_letter_space(4)
                       .center_x()
                       .y(96)
                       .font(&lv_font_orbitron_medium_128);
     rangeLabel = &mx(this)
                       ->label()
                       .text_color(theme.secondaryTextColor)
+                      .text_letter_space(4)
                       .center_x()
                       .y(244)
                       .font(&lv_font_orbitron_medium_24);

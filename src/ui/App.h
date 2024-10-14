@@ -37,15 +37,21 @@ class TipApp : public Application {
       connector.startMonitoring();
 #else
     struct tm tm;
-    tm.tm_year = 2024 - 1900;
-    tm.tm_mon = 9;
-    tm.tm_mday = 14;
-    tm.tm_hour = 22 - 8;
-    tm.tm_min = 33;
-    tm.tm_sec = 0;
+    auto buildTime = String(__TIME__);
+    tm.tm_year = 2025 - 1900;
+    tm.tm_mon = 0;
+    tm.tm_mday = 1;
+    tm.tm_hour = buildTime.substring(0, 2).toInt() - 8;
+    tm.tm_min = buildTime.substring(3, 5).toInt();
+    tm.tm_sec = buildTime.substring(6, 8).toInt();
     time_t t = mktime(&tm);
     struct timeval now = {.tv_sec = t};
     settimeofday(&now, NULL);
+    vehicle.setGear(Gear::D);
+    vehicle.setSpeed(36);
+    vehicle.setRange(371);
+    vehicle.setStateOfCharge(90);
+    vehicle.setTemperatureAmbient(23);
 #endif
 
       mainScene = new MainScene(vehicle);

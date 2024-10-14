@@ -106,6 +106,11 @@ class MXObject {
     return *this;
   }
 
+  MXObject& text_letter_space(const lv_coord_t space) {
+    lv_obj_set_style_text_letter_space(_internalObj, space, LV_PART_MAIN);
+    return *this;
+  }
+
   /* Size */
   MXObject& size(lv_coord_t width, lv_coord_t height) {
     lv_obj_set_size(_internalObj, width, height);

@@ -36,7 +36,7 @@ void initHardwares() {
 
 void initDrivers() {
   display.begin();
-  display.setBrightness(66);
+  display.setBrightness(50);
   display.setRotation(3);
 
   spiffsDriver.begin('A');
@@ -55,7 +55,12 @@ void setup() {
   delay(200);
 
   Serial.begin(115200);
-  Serial.println("Welcome to Tips");
+  Serial.println("Welcome to Tips!");
+  Serial.print("Build at ");
+  Serial.print(__TIME__);
+  Serial.print(" ");
+  Serial.println(__DATE__);  // Compile date
+  Serial.println();
 
   initLogging();
   initHardwares();
