@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include "../../vehicle/TeslaVehicle.h"
+#include "../../tesla/TeslaVehicle.h"
 #include "../Theme.h"
 #include "fonts.h"
 
@@ -130,11 +130,11 @@ class MainScene : public Scene {
       rightSignalArc->arc_color(0x000000);
     }
 
-    // if (_vehicle.isBrakeLightOn()) {
-    //   brakeLightLine->line_color(theme.errorColor);
-    // } else {
-    //   brakeLightLine->line_color(0x000000);
-    // }
+    if (_vehicle.isBrakeLightOn()) {
+      brakeLightLine->line_color(theme.errorColor);
+    } else {
+      brakeLightLine->line_color(0x000000);
+    }
   }
 
  private:

@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+class TeslaCANMessageProcessor;
+
 enum Gear {
   UNKNOWN = 0,
   P = 1,
@@ -10,9 +12,11 @@ enum Gear {
   D = 4,
 };
 
-#define TESLA_VEHICLE_LOG_ENABLED 1
+#define TESLA_VEHICLE_LOG_ENABLED 0
 
 class TeslaVehicle {
+  friend class TeslaCANMessageProcessor;
+
  public:
   TeslaVehicle() { reset(); }
 
