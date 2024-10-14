@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <SPIFFS.h>
+
+// LVGL
 #include <lvgl.h>
 
 // Always include `device_conf.h` first
