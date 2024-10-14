@@ -55,7 +55,7 @@ class TipApp : public Application {
 #endif
 
       mainScene = new MainScene(vehicle);
-      mainScene->show();
+      mainScene->show(lv_scr_load_anim_t::LV_SCR_LOAD_ANIM_MOVE_RIGHT);
 
 #if BLE_ENABLED
     } else {
