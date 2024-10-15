@@ -13,7 +13,6 @@
 TeslaVehicle vehicle;
 
 const char* DEVICE_ADDRESS = "c0:08:e1:98:fc:c8";
-// In my case, setting the buffer size to 1024 works the best.
 BLESerialConnection connection(1024);
 TeslaCANMessageProcessor processor(vehicle);
 CANMessageListener listener(TESLA_CAN_MESSAGES);
