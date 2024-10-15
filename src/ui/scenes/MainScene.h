@@ -74,7 +74,7 @@ class MainScene : public Scene {
 
     leftSignalArc = &mx(this)
                          ->arc()
-                         .size(320)
+                         .size(Screen::main().getWidth() - 40)
                          .center()
                          .arc_value(10)
                          .arc_rotation(162)
@@ -82,7 +82,7 @@ class MainScene : public Scene {
 
     rightSignalArc = &mx(this)
                           ->arc()
-                          .size(320)
+                          .size(Screen::main().getWidth() - 40)
                           .center()
                           .arc_value(10)
                           .arc_rotation(162 + 180)

@@ -5,7 +5,7 @@
 
 class Display : public Component {
  public:
-  static Display& getMain() {
+  static Display& main() {
     static Display instance;
     return instance;
   }

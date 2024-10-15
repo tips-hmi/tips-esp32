@@ -57,7 +57,7 @@ class TipApp : public Application {
 
   void onUpdate() override {
     connector.update();
-    Display::getMain().setBrightness(vehicle.getDisplayBrightnessLevel());
+    Display::main().setBrightness(vehicle.getDisplayBrightnessLevel());
     Application::onUpdate();
   }
 };
