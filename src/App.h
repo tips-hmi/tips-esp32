@@ -5,10 +5,10 @@
 #include <STN_OBD_CAN.h>
 #include <mx_ui.h>
 
-#include "../tesla/TeslaCANMessageProcessor.h"
-#include "../tesla/TeslaVehicle.h"
-#include "../tesla/definitions.h"
-#include "scenes/MainScene.h"
+#include "tesla/TeslaCANMessageProcessor.h"
+#include "tesla/TeslaVehicle.h"
+#include "tesla/definitions.h"
+#include "ui/scenes/MainScene.h"
 
 TeslaVehicle vehicle;
 

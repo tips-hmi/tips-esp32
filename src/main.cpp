@@ -16,7 +16,7 @@
 #include "drivers/spiffs-driver/SPIFFSDriver.h"
 
 // App
-#include "ui/App.h"
+#include "App.h"
 
 TouchDisplay display;
 SPIFFSDriver spiffsDriver;
