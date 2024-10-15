@@ -48,7 +48,6 @@ void TeslaCANMessageProcessor::process(uint16_t messageId,
         struct timeval now = {.tv_sec = t};
         settimeofday(&now, NULL);
         __time_has_been_set = true;
-        log_i("Time has been set to %d", t);
       }
       break;
     }
