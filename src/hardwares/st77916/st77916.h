@@ -13,7 +13,7 @@ static ESP_PanelBacklight *backlight = NULL;
 #define TFT_SPI_FREQ_HZ (50 * 1000 * 1000)
 
 uint16_t rgb565(uint32_t color24bit);
-bool lcd_clear(uint32_t color24bit);
+bool lcd_clear(uint32_t color24bit = 0x000000);
 bool lcd_draw_splash();
 
 void st77916_init() {
@@ -52,16 +52,18 @@ void st77916_init() {
   lcd->invertColor(true);
   lcd->displayOn();
 
-  lcd_draw_splash();
+  // lcd_draw_splash();
+  lcd->colorBarTest(SCREEN_RES_HOR, SCREEN_RES_VER);
 }
 
 bool lcd_draw_splash() {
   auto randomIndex = random(1, 3);
   auto map = randomIndex == 1 ? splash_01_map : splash_02_map;
-  return lcd->drawBitmap(0, 0, 360, 360, map);
+  return lcd->drawBitmapWaitUntilFinish(0, 0, SCREEN_RES_HOR, SCREEN_RES_VER,
+                                        map);
 }
 
-bool lcd_clear(uint32_t color24bit = 0x000000) {
+bool lcd_clear(uint32_t color24bit) {
   uint16_t color16bit = rgb565(color24bit);
   int bits_per_pixel = 16;  // 16 bits per pixel
   int bytes_per_pixel = bits_per_pixel / 8;
