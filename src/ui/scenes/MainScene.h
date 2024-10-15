@@ -174,6 +174,8 @@ class MainScene : public Scene {
         return "N";
       case Gear::D:
         return "D";
+      case Gear::SNA:
+        return "READY";
       default:
         return "";
     }
