@@ -24,11 +24,7 @@ void TeslaCANMessageProcessor::process(uint16_t messageId,
     }
     case ID118DriveSystemStatus: {
       auto value = DI_gear;
-      if (value == 0 || value == 7) {
-        _vehicle.setGear(Gear::UNKNOWN);
-      } else {
-        _vehicle.setGear(static_cast<Gear>(value));
-      }
+      _vehicle.setGear(static_cast<Gear>(value));
       break;
     }
     case ID257DIspeed: {

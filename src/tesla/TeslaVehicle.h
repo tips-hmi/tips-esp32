@@ -5,11 +5,12 @@
 class TeslaCANMessageProcessor;
 
 enum Gear {
-  UNKNOWN = 0,
+  INVALID = 0,
   P = 1,
   R = 2,
   N = 3,
   D = 4,
+  SNA =7
 };
 
 #define TESLA_VEHICLE_LOG_ENABLED 0
