@@ -1,6 +1,6 @@
 #pragma once
 
-#define LOCAL_TEST 0
+#define LOCAL_TEST 1
 
 #include <STN_OBD_CAN.h>
 #include <mx_ui.h>
@@ -42,6 +42,9 @@ class TipApp : public Application {
     vehicle.setRange(371);
     vehicle.setStateOfCharge(90);
     vehicle.setTemperatureAmbient(23);
+
+    mainScene = new MainScene(vehicle);
+    mainScene->show(lv_scr_load_anim_t::LV_SCR_LOAD_ANIM_FADE_IN);
 #else
     listener.setProcessor(&processor);
     connector.setListener(&listener);

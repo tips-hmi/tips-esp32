@@ -10,6 +10,8 @@ class Display : public Component {
     return instance;
   }
 
+  int getColorBits() { return lcd->getColorBits(); }
+
   virtual void setRotation(uint8_t rotation) {
     if (rotation > 3) return;
     if (lcd == NULL) return;

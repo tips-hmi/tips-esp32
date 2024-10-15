@@ -53,8 +53,6 @@ void keepSerialAlive() {
 }
 
 void setup() {
-  delay(200);
-
   Serial.begin(115200);
   Serial.println("Welcome to Tips!");
   Serial.print("Build at ");
