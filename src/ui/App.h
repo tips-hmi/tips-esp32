@@ -1,27 +1,23 @@
 #pragma once
 
-#define BLE_ENABLED 0
+#define LOCAL_TEST 0
 
+#include <STN_OBD_CAN.h>
 #include <mx_ui.h>
 
-#if BLE_ENABLED
-#include <STN_OBD_CAN.h>
-
 #include "../tesla/TeslaCANMessageProcessor.h"
-#include "../tesla/definitions.h"
-#endif
-
 #include "../tesla/TeslaVehicle.h"
+#include "../tesla/definitions.h"
 #include "scenes/MainScene.h"
 
 TeslaVehicle vehicle;
 
-#if BLE_ENABLED
 const char* DEVICE_ADDRESS = "c0:08:e1:98:fc:c8";
+// In my case, setting the buffer size to 1024 works the best.
+BLESerialConnection connection(1024);
 TeslaCANMessageProcessor processor(vehicle);
 CANMessageListener listener(TESLA_CAN_MESSAGES);
-OBDConnector connector(TESLA_CAN_MESSAGES);
-#endif
+OBDConnector connector(connection, TESLA_CAN_MESSAGES);
 
 MainScene* mainScene;
 
@@ -30,12 +26,7 @@ class TipApp : public Application {
   void onInit() override {
     Application::onInit();
 
-#if BLE_ENABLED
-    listener.setProcessor(&processor);
-    connector.setListener(&listener);
-    if (connector.connect(DEVICE_ADDRESS)) {
-      connector.startMonitoring();
-#else
+#if LOCAL_TEST
     struct tm tm;
     auto buildTime = String(__TIME__);
     tm.tm_year = 2025 - 1900;
@@ -52,12 +43,13 @@ class TipApp : public Application {
     vehicle.setRange(371);
     vehicle.setStateOfCharge(90);
     vehicle.setTemperatureAmbient(23);
-#endif
-
+#else
+    listener.setProcessor(&processor);
+    connector.setListener(&listener);
+    if (connector.connect(DEVICE_ADDRESS)) {
+      connector.startMonitoring();
       mainScene = new MainScene(vehicle);
       mainScene->show(lv_scr_load_anim_t::LV_SCR_LOAD_ANIM_MOVE_RIGHT);
-
-#if BLE_ENABLED
     } else {
       log_e("Failed to connect to device '%s'", DEVICE_ADDRESS);
     }
@@ -65,9 +57,8 @@ class TipApp : public Application {
   }
 
   void onUpdate() override {
-#if BLE_ENABLED
     connector.update();
-#endif
+    Display::getMain().setBrightness(vehicle.getDisplayBrightnessLevel());
     Application::onUpdate();
   }
 };
