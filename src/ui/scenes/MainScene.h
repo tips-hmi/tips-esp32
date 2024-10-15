@@ -40,7 +40,7 @@ class MainScene : public Scene {
                      .text_letter_space(2)
                      .x(64)
                      .y(60)
-                     .font(&lv_font_orbitron_medium_24);
+                     .font(&lv_font_montserrat_24);
     temperatureLabel = &mx(this)
                             ->label()
                             .text_color(theme.secondaryTextColor)
@@ -49,7 +49,7 @@ class MainScene : public Scene {
                             .y(60)
                             .w(100)
                             .text_align(LV_TEXT_ALIGN_RIGHT)
-                            .font(&lv_font_orbitron_medium_24);
+                            .font(&lv_font_montserrat_24);
     mx(this)->hr_line(256, 100).center_x().line_color(theme.secondaryTextColor);
     speedLabel = &mx(this)
                       ->label()
@@ -175,7 +175,7 @@ class MainScene : public Scene {
       case Gear::D:
         return "D";
       case Gear::SNA:
-        return "READY";
+        return "";
       default:
         return "";
     }
