@@ -58,7 +58,7 @@ const CANMessageDefinitionCollection TESLA_CAN_MESSAGES({
     CANMessageDefinition(ID257DIspeed),
 
     // Ambient Brightness
-    CANMessageDefinition(ID273UI_vehicleControl),
+    // CANMessageDefinition(ID273UI_vehicleControl),
 
     // State of Charge
     CANMessageDefinition(ID292BMS_SOC),
@@ -73,7 +73,7 @@ const CANMessageDefinitionCollection TESLA_CAN_MESSAGES({
     CANMessageDefinition(ID33AUI_rangeSOC),
 
     // Buttons
-    CANMessageDefinition(ID3C2VCLEFT_switchStatus),
+    // CANMessageDefinition(ID3C2VCLEFT_switchStatus),
 
     // Left turn signal and brake light
     CANMessageDefinition(ID3E2VCLEFT_lightStatus, 7),
