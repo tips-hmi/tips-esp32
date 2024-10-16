@@ -14,6 +14,7 @@ static ESP_PanelBacklight *backlight = NULL;
 
 uint16_t rgb565(uint32_t color24bit);
 bool lcd_clear(uint32_t color24bit = 0x000000);
+bool lcd_draw_full_screen_bitmap(const uint8_t *bitmap);
 bool lcd_draw_splash();
 
 void st77916_init() {
@@ -52,15 +53,42 @@ void st77916_init() {
   lcd->invertColor(true);
   lcd->displayOn();
 
-  // lcd_draw_splash();
-  lcd->colorBarTest(SCREEN_RES_HOR, SCREEN_RES_VER);
+  lcd_draw_splash();
+  // lcd->colorBarTest(SCREEN_RES_HOR, SCREEN_RES_VER);
 }
 
 bool lcd_draw_splash() {
-  auto randomIndex = random(1, 3);
-  auto map = randomIndex == 1 ? splash_01_map : splash_02_map;
-  return lcd->drawBitmapWaitUntilFinish(0, 0, SCREEN_RES_HOR, SCREEN_RES_VER,
-                                        map);
+  auto random_splash = random(1, 3);
+  if (random_splash == 1) {
+    return lcd_draw_full_screen_bitmap(splash_01_map);
+  } else {
+    return lcd_draw_full_screen_bitmap(splash_02_map);
+  }
+}
+
+bool lcd_draw_full_screen_bitmap(const uint8_t *bitmap) {
+  uint8_t *buffer = nullptr;
+
+  try {
+    // Allocate memory for one line
+    buffer = new uint8_t[SCREEN_RES_HOR * 2];
+  } catch (std::bad_alloc &e) {
+    return false;
+  }
+
+  for (int y = 0; y < SCREEN_RES_VER; y++) {
+    for (int x = 0; x < SCREEN_RES_HOR; x++) {
+      buffer[x * 2] = bitmap[y * SCREEN_RES_HOR * 2 + x * 2];
+      buffer[x * 2 + 1] = bitmap[y * SCREEN_RES_HOR * 2 + x * 2 + 1];
+    }
+    bool ret = lcd->drawBitmapWaitUntilFinish(0, y, SCREEN_RES_HOR, 1, buffer);
+    if (!ret) {
+      return false;
+    }
+  }
+
+  delete[] buffer;
+  return true;
 }
 
 bool lcd_clear(uint32_t color24bit) {

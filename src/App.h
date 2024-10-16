@@ -1,6 +1,6 @@
 #pragma once
 
-#define LOCAL_TEST 1
+#define LOCAL_TEST 0
 
 #include <STN_OBD_CAN.h>
 #include <mx_ui.h>
@@ -50,8 +50,9 @@ class TipApp : public Application {
     connector.setListener(&listener);
     if (connector.connect(DEVICE_ADDRESS)) {
       connector.startMonitoring();
+
       mainScene = new MainScene(vehicle);
-      mainScene->show(lv_scr_load_anim_t::LV_SCR_LOAD_ANIM_MOVE_RIGHT);
+      mainScene->show(lv_scr_load_anim_t::LV_SCR_LOAD_ANIM_FADE_IN);
     } else {
       log_e("Failed to connect to device '%s'", DEVICE_ADDRESS);
     }
