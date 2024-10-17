@@ -19,7 +19,21 @@ class TeslaVehicle {
     if (_gear != gear) {
       _gear = gear;
       logState("Gear", (uint16_t)_gear);
+      Serial.printf("Gear: %d\n", (uint16_t)_gear);
+
+      if (gear == Gear::P) {
+        _lastParkStartTime = millis();
+      } else {
+        _lastParkStartTime = 0;
+      }
     }
+  }
+
+  long getParkDuration() const {
+    if (getGear() != Gear::P || _lastParkStartTime == 0) {
+      return 0;
+    }
+    return millis() - _lastParkStartTime;
   }
 
   uint16_t getSpeed() const { return _speed; }
@@ -138,7 +152,7 @@ class TeslaVehicle {
   bool isMoving() const { return getSpeed() > 0; }
 
   void reset() {
-    _gear = Gear::P;
+    _gear = Gear::INVALID;
     _speed = 0;
     _range = 0;
     _stateOfCharge = 0;
@@ -204,4 +218,6 @@ class TeslaVehicle {
   bool _rearRightDoorClosed;
 
   int8_t _switchRightScrollTicks;
+
+  long _lastParkStartTime = 0;
 };
