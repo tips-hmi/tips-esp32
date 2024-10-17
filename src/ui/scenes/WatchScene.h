@@ -41,6 +41,8 @@ class WatchScene : public Scene {
   void onInit() override {
     Scene::onInit();
 
+    backgroundImage = &mx(this)->image().center();
+
     socArc = &mx(this)
                   ->progress_arc()
                   .size_full()
@@ -48,21 +50,20 @@ class WatchScene : public Scene {
                   .arc_rotation(270)
                   .arc_width(5);
 
-    backgroundImage = &mx(this)->image().center();
     timeLabel = &mx(this)->label().center().text_letter_space(4);
 
     _applyWatchFace(_watchFace);
 
-    mx(this)->onGesture([](lv_event_t *e) {
-      lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+    // mx(this)->onGesture([](lv_event_t *e) {
+    //   lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
 
-      WatchScene *scene = static_cast<WatchScene *>(e->user_data);
-      if (dir == LV_DIR_RIGHT) {
-        scene->previousWatchFace();
-      } else if (dir == LV_DIR_LEFT) {
-        scene->nextWatchFace();
-      }
-    });
+    //   WatchScene *scene = static_cast<WatchScene *>(e->user_data);
+    //   if (dir == LV_DIR_RIGHT) {
+    //     scene->previousWatchFace();
+    //   } else if (dir == LV_DIR_LEFT) {
+    //     scene->nextWatchFace();
+    //   }
+    // });
   }
 
   void onUpdate() override {
@@ -75,6 +76,7 @@ class WatchScene : public Scene {
     } else {
       socArc->arc_color(theme.successColor);
     }
+
     timeLabel->text(formatTime());
   }
 
@@ -84,8 +86,9 @@ class WatchScene : public Scene {
   WatchFace *_watchFace = watchFaces[_watchFaceIndex];
 
   void _applyWatchFace(WatchFace *watchFace) {
-    backgroundImage->src(String("A:/watch-face-") + watchFace->backgroundImage +
-                         ".png");
+    // backgroundImage->src(String("A:/watch-face-") +
+    // watchFace->backgroundImage +
+    //                      ".png");
     timeLabel->text_color(watchFace->timeColor);
     timeLabel->font(watchFace->timeFont);
     if (watchFace->timeX != 0) {
