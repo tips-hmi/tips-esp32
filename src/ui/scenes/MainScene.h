@@ -2,11 +2,10 @@
 
 #include <mx_ui.h>
 
-#include <string>
-
-#include "../../tesla/TeslaVehicle.h"
-#include "../Theme.h"
 #include "fonts.h"
+#include "tesla/TeslaVehicle.h"
+#include "ui/Theme.h"
+#include "utils/time_util.h"
 
 class MainScene : public Scene {
  public:
@@ -32,44 +31,44 @@ class MainScene : public Scene {
                   .size_full()
                   .center()
                   .arc_rotation(270)
-                  .arc_width(4);
+                  .arc_width(5);
 
     timeLabel = &mx(this)
                      ->label()
-                     .text_color(theme.secondaryTextColor)
-                     .text_letter_space(2)
                      .x(64)
                      .y(60)
+                     .text_color(theme.secondaryTextColor)
+                     .text_letter_space(2)
                      .font(&lv_font_montserrat_24);
     temperatureLabel = &mx(this)
                             ->label()
-                            .text_color(theme.secondaryTextColor)
-                            .text_letter_space(2)
                             .x(194)
                             .y(60)
                             .w(100)
+                            .text_color(theme.secondaryTextColor)
+                            .text_letter_space(2)
                             .text_align(LV_TEXT_ALIGN_RIGHT)
                             .font(&lv_font_montserrat_24);
-    mx(this)->hr_line(256, 100).center_x().line_color(theme.secondaryTextColor);
+    mx(this)->hr_line(256, 100).center_x().line_color(0x555555);
     speedLabel = &mx(this)
                       ->label()
-                      .text_color(theme.textColor)
-                      .text_letter_space(4)
                       .center_x()
                       .y(96)
+                      .text_color(theme.textColor)
+                      .text_letter_space(4)
                       .font(&lv_font_orbitron_medium_128);
     rangeLabel = &mx(this)
                       ->label()
-                      .text_color(theme.secondaryTextColor)
-                      .text_letter_space(4)
                       .center_x()
                       .y(244)
+                      .text_color(theme.secondaryTextColor)
+                      .text_letter_space(4)
                       .font(&lv_font_orbitron_medium_24);
     gearLabel = &mx(this)
                      ->label()
-                     .text_color(theme.textColor)
                      .center_x()
                      .y(290)
+                     .text_color(theme.textColor)
                      .font(&lv_font_orbitron_medium_42);
 
     leftSignalArc = &mx(this)
@@ -96,17 +95,17 @@ class MainScene : public Scene {
   void onUpdate() override {
     Scene::onUpdate();
 
-    timeLabel->text(_formatTime().c_str());
+    timeLabel->text(formatTime());
 
     temperatureLabel->text(
-        _formatTemperature(_vehicle.getTemperatureAmbient()).c_str());
+        _formatTemperature(_vehicle.getTemperatureAmbient()));
 
-    speedLabel->text(_formatSpeed(_vehicle.getSpeed()).c_str());
+    speedLabel->text(_formatSpeed(_vehicle.getSpeed()));
 
     float_t soc = _vehicle.getStateOfCharge();
     float_t range = _vehicle.getRange();
     socArc->arc_value(soc);
-    rangeLabel->text(_formatRange(range).c_str());
+    rangeLabel->text(_formatRange(range));
     if (soc <= 20.0) {
       rangeLabel->text_color(theme.warningColor);
       socArc->arc_color(theme.warningColor);
@@ -116,7 +115,7 @@ class MainScene : public Scene {
     }
 
     Gear gear = _vehicle.getGear();
-    gearLabel->text(_formatGear(gear).c_str());
+    gearLabel->text(_formatGear(gear));
     if (gear == Gear::R) {
       gearLabel->text_color(theme.warningColor);
     } else {
@@ -144,15 +143,6 @@ class MainScene : public Scene {
 
  private:
   const TeslaVehicle &_vehicle;
-
-  const String _formatTime() const {
-    time_t now = time(nullptr);
-    struct tm *timeInfo = localtime(&now);
-    int hour = (timeInfo->tm_hour + 8) % 24;  // Adjust for UTC+8
-    int min = timeInfo->tm_min;
-    return (hour < 10 ? "0" : "") + String(hour) + ":" + (min < 10 ? "0" : "") +
-           String(min);
-  }
 
   const String _formatSpeed(uint16_t value) const { return String(value); }
 

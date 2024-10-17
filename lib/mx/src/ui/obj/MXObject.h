@@ -1,14 +1,19 @@
 #pragma once
 
+#include <Arduino.h>
 #include <lvgl.h>
 
 #include <algorithm>
 
+class Component;
 class Scene;
 
 class MXObject {
  public:
   MXObject(lv_obj_t* obj) : _internalObj(obj) {}
+
+  MXObject(Scene* scene);
+
   ~MXObject() {
     if (_internalObj != nullptr) {
       lv_obj_del(_internalObj);
@@ -20,6 +25,12 @@ class MXObject {
   lv_obj_t* lv_obj() { return _internalObj; }
   lv_obj_t* parent() { return lv_obj_get_parent(_internalObj); }
 
+  MXObject& container() {
+    _internalObj = lv_obj_create(_internalObj);
+    remove_style(NULL, LV_PART_MAIN);
+    return *this;
+  }
+
   /* Creation */
   MXObject& label(const char* label = "") {
     _internalObj = lv_label_create(_internalObj);
@@ -30,6 +41,11 @@ class MXObject {
   MXObject& image(const char* imageSrc = "") {
     _internalObj = lv_img_create(_internalObj);
     src(imageSrc);
+    return *this;
+  }
+
+  MXObject& image(const String imageSrc) {
+    image(imageSrc.c_str());
     return *this;
   }
 
@@ -201,6 +217,7 @@ class MXObject {
     return *this;
   }
 
+  // Text
   MXObject& text_color(uint32_t color) {
     lv_obj_set_style_text_color(_internalObj, lv_color_hex(color),
                                 LV_PART_MAIN);
@@ -219,6 +236,15 @@ class MXObject {
 
   MXObject& hide() {
     lv_obj_add_flag(_internalObj, LV_OBJ_FLAG_HIDDEN);
+    return *this;
+  }
+
+  MXObject& toggle(bool visible) {
+    if (visible) {
+      show();
+    } else {
+      hide();
+    }
     return *this;
   }
 
@@ -242,10 +268,26 @@ class MXObject {
     return *this;
   }
 
+  // Events
+  MXObject& onClick(lv_event_cb_t cb) {
+    lv_obj_add_event_cb(_internalObj, cb, LV_EVENT_CLICKED, _scene);
+    return *this;
+  }
+
+  MXObject& onGesture(lv_event_cb_t cb) {
+    lv_obj_add_event_cb(_internalObj, cb, LV_EVENT_GESTURE, _scene);
+    return *this;
+  }
+
   // Label specific
   const char* text() { return lv_label_get_text(_internalObj); }
-  MXObject& text(const char* text) {
-    lv_label_set_text(_internalObj, text);
+  MXObject& text(const char* value) {
+    lv_label_set_text(_internalObj, value);
+    return *this;
+  }
+
+  MXObject& text(const String value) {
+    text(value.c_str());
     return *this;
   }
 
@@ -259,8 +301,13 @@ class MXObject {
 
   // Image specific
   const void* src() { return lv_img_get_src(_internalObj); }
-  MXObject& src(const char* src) {
-    lv_img_set_src(_internalObj, src);
+  MXObject& src(const char* path) {
+    lv_img_set_src(_internalObj, path);
+    return *this;
+  }
+
+  MXObject& src(const String path) {
+    src(path.c_str());
     return *this;
   }
 
@@ -307,6 +354,7 @@ class MXObject {
 
  private:
   lv_obj_t* _internalObj;
+  Scene* _scene;
 };
 
 MXObject* mx(lv_obj_t* obj);

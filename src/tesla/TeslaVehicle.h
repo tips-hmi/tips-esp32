@@ -130,7 +130,7 @@ class TeslaVehicle {
     }
   }
 
-  bool hasDoorOpen() {
+  bool hasDoorOpen() const {
     return !isFrontLeftDoorClosed() || !isFrontRightDoorClosed() ||
            !isRearLeftDoorClosed() || !isRearRightDoorClosed();
   }
