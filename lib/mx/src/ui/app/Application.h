@@ -3,7 +3,8 @@
 #include <stack>
 
 #include "Component.h"
-#include "ui/scene/Scene.h"
+
+class Scene;
 
 class Application : public Component {
  public:
@@ -12,7 +13,7 @@ class Application : public Component {
 
   static Application *current() { return _current; }
 
-  Scene *getActiveScene() { return _activeScene; }
+  Scene *getActiveScene() const { return _activeScene; }
 
   void start() {
     begin();

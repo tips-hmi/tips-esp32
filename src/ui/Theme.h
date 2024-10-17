@@ -11,4 +11,4 @@ class Theme {
   const uint32_t errorColor = 0xbf5b4a;
 };
 
-Theme theme;
+static const Theme theme;

@@ -8,9 +8,9 @@ class Screen {
 
   static Screen &main();
 
-  int getWidth() { return lv_disp_get_hor_res(_display); }
+  int getWidth() const { return lv_disp_get_hor_res(_display); }
 
-  int getHeight() { return lv_disp_get_ver_res(_display); }
+  int getHeight() const { return lv_disp_get_ver_res(_display); }
 
  protected:
   Screen(lv_disp_t *display);

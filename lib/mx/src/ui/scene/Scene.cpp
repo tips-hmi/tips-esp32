@@ -2,7 +2,9 @@
 
 #include <lvgl.h>
 
+#include "Component.h"
 #include "ui/app/Application.h"
+#include "ui/obj/MXObject.h"
 
 void Scene::activate() {
   auto activeScene = Application::current()->getActiveScene();

@@ -23,7 +23,7 @@ class MainScene : public Scene {
   MXObject *rightSignalArc;
   MXObject *brakeLightLine;
 
-  const TeslaVehicle &getVehicle() { return _vehicle; }
+  const TeslaVehicle &getVehicle() const { return _vehicle; }
 
   void onInit() override {
     Scene::onInit();

@@ -1,16 +1,19 @@
 #pragma once
 
+#include <lvgl.h>
+
 #include "Component.h"
-#include "ui/obj/MXObject.h"
-#include "ui/screen/Screen.h"
+
+class Component;
+class MXObject;
 
 class Scene : public Component {
  public:
   Scene() {}
 
-  MXObject* getRoot() { return root; }
+  MXObject* getRoot() const { return root; }
 
-  bool isActive() { return active; }
+  bool isActive() const { return active; }
 
   void activate();
 
@@ -27,7 +30,7 @@ class Scene : public Component {
   lv_coord_t height;
   bool active = false;
 
-  virtual bool shouldDestroy() { return false; }
+  virtual bool shouldDestroy() const { return false; }
 
   virtual void onInit() override;
   virtual void willDestroy() override;

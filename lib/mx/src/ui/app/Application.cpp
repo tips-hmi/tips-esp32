@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "ui/scene/Scene.h"
+
 Application *Application::_current = nullptr;
 
 void Application::onUpdate() {
