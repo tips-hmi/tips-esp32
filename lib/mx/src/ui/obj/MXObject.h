@@ -12,6 +12,8 @@ class MXObject {
  public:
   MXObject(lv_obj_t* obj) : _internalObj(obj) {}
 
+  MXObject(MXObject* obj);
+
   MXObject(Scene* scene);
 
   ~MXObject() {
