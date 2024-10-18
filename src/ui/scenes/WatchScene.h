@@ -41,7 +41,7 @@ class WatchScene : public Scene {
   void onInit() override {
     Scene::onInit();
 
-    backgroundImage = &mx(this)->image().center();
+    // backgroundImage = &mx(this)->image("A:/watch-face-001.png").center();
 
     socArc = &mx(this)
                   ->progress_arc()
