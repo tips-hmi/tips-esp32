@@ -27,31 +27,27 @@ class DoorScene : public Scene {
     Scene::onInit();
     vehicleContainer = &mx(this)->container().size(220, 268).center();
     vehicleImage =
-        &mx(vehicleContainer)->image().center().src("A:/vehicle-top-view.png");
+        &mx(vehicleContainer)->image("A:/vehicle-top-view.png").center();
     frontLeftDoorImage = &mx(vehicleContainer)
-                              ->image()
+                              ->image("A:/vehicle-top-view-dfl.png")
                               .hide()
                               .x(0)
-                              .y(74)
-                              .src("A:/vehicle-top-view-dfl.png");
+                              .y(74);
     frontRightDoorImage = &mx(vehicleContainer)
-                               ->image()
+                               ->image("A:/vehicle-top-view-dfr.png")
                                .hide()
                                .x(156)
-                               .y(74)
-                               .src("A:/vehicle-top-view-dfr.png");
+                               .y(74);
     rearLeftDoorImage = &mx(vehicleContainer)
-                             ->image()
+                             ->image("A:/vehicle-top-view-drl.png")
                              .hide()
                              .x(0)
-                             .y(134)
-                             .src("A:/vehicle-top-view-drl.png");
+                             .y(134);
     rearRightDoorImage = &mx(vehicleContainer)
-                              ->image()
+                              ->image("A:/vehicle-top-view-drr.png")
                               .hide()
                               .x(146)
-                              .y(134)
-                              .src("A:/vehicle-top-view-drr.png");
+                              .y(134);
   }
 
   void onActivate() override {
