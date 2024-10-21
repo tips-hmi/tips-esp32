@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <SPIFFS.h>
 
+#define TOUCH_ENABLED 0
+
 // LVGL
 #include <lvgl.h>
 
@@ -8,17 +10,27 @@
 #include "device_conf.h"
 
 // Hardwares
-#include "hardwares/cst816/cst816_lv_8.h"
 #include "hardwares/st77916/st77916_lv_8.h"
+#if TOUCH_ENABLED
+#include "hardwares/cst816/cst816_lv_8.h"
+#endif
 
 // Drivers
+#if TOUCH_ENABLED
 #include "drivers/display/TouchDisplay.h"
+#else
+#include "drivers/display/Display.h"
+#endif
 #include "drivers/spiffs-driver/SPIFFSDriver.h"
 
 // App
 #include "App.h"
 
+#if TOUCH_ENABLED
 TouchDisplay display;
+#else
+Display display;
+#endif
 SPIFFSDriver spiffsDriver;
 TipApp* app = nullptr;
 
@@ -31,7 +43,9 @@ void initLogging() {
 
 void initHardwares() {
   lv_st77916_init();
+#if TOUCH_ENABLED
   lv_cst816_init();
+#endif
 }
 
 void initDrivers() {
