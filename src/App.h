@@ -77,7 +77,7 @@ class TipApp : public Application {
       } else if (vehicle.getGear() == Gear::INVALID ||
                  vehicle.getGear() == Gear::SNA) {
         scene = watchScene;
-      } else if (vehicle.getParkDuration() > 3 * 60 * 1000) {
+      } else if (vehicle.getParkDuration() > 1 * 60 * 1000) {
         scene = watchScene;
       }
 
