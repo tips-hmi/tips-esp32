@@ -43,7 +43,7 @@ class TipApp : public Application {
     time_t t = mktime(&tm) + 22;
     struct timeval now = {.tv_sec = t};
     settimeofday(&now, NULL);
-    vehicle.setGear(Gear::SNA);
+    vehicle.setGear(Gear::P);
     vehicle.setSpeed(36);
     vehicle.setRange(371);
     vehicle.setStateOfCharge(90);
