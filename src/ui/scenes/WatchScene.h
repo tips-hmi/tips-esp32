@@ -41,12 +41,15 @@ class WatchScene : public Scene {
   void onInit() override {
     Scene::onInit();
 
-    // backgroundImage = &mx(this)->image("A:/watch-face-001.png").center();
+    mx(this)->non_scrollable();
+
+    backgroundImage = &mx(this)->image().center();
 
     socArc = &mx(this)
                   ->progress_arc()
                   .size_full()
-                  .center()
+                  .x(1)
+                  .y(1)
                   .arc_rotation(270)
                   .arc_width(5);
 
@@ -54,16 +57,16 @@ class WatchScene : public Scene {
 
     _applyWatchFace(_watchFace);
 
-    // mx(this)->onGesture([](lv_event_t *e) {
-    //   lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+    mx(this)->onGesture([](lv_event_t *e) {
+      lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
 
-    //   WatchScene *scene = static_cast<WatchScene *>(e->user_data);
-    //   if (dir == LV_DIR_RIGHT) {
-    //     scene->previousWatchFace();
-    //   } else if (dir == LV_DIR_LEFT) {
-    //     scene->nextWatchFace();
-    //   }
-    // });
+      WatchScene *scene = static_cast<WatchScene *>(e->user_data);
+      if (dir == LV_DIR_RIGHT) {
+        scene->previousWatchFace();
+      } else if (dir == LV_DIR_LEFT) {
+        scene->nextWatchFace();
+      }
+    });
   }
 
   void onUpdate() override {
@@ -91,12 +94,6 @@ class WatchScene : public Scene {
     //                      ".png");
     timeLabel->text_color(watchFace->timeColor);
     timeLabel->font(watchFace->timeFont);
-    if (watchFace->timeX != 0) {
-      timeLabel->x(watchFace->timeX);
-    }
-    if (watchFace->timeY != 0) {
-      timeLabel->y(watchFace->timeY);
-    }
     if (watchFace->timeX == 0 && watchFace->timeY == 0) {
       timeLabel->center();
     } else {
@@ -106,6 +103,12 @@ class WatchScene : public Scene {
       if (watchFace->timeY == 0) {
         timeLabel->center_y();
       }
+    }
+    if (watchFace->timeX != 0) {
+      timeLabel->x(watchFace->timeX);
+    }
+    if (watchFace->timeY != 0) {
+      timeLabel->y(watchFace->timeY);
     }
   }
 };

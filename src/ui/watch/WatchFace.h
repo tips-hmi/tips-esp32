@@ -25,7 +25,21 @@ class WatchFace {
 };
 
 std::vector<WatchFace*> watchFaces = {
+    // Abstract BW
     new WatchFace("001", &lv_font_montserrat_72),
     new WatchFace("002", &lv_font_montserrat_72),
     new WatchFace("003", &lv_font_montserrat_96),
+    new WatchFace("004", &lv_font_montserrat_72, 0, 88),
+    new WatchFace("005", &lv_font_montserrat_72, 0, 88),
+
+    // Abstract Color
+    new WatchFace("100", &lv_font_montserrat_96, 0, 88),
+    new WatchFace("101", &lv_font_montserrat_72, 0, 80),
+
+    // Art
+    new WatchFace("500", &lv_font_montserrat_72, 0, 40, 0x520404),
+    new WatchFace("501", &lv_font_montserrat_72, 0, 62, 0x222222),
+
+    // Photo
+    new WatchFace("800", &lv_font_montserrat_72, 0, 42, 0x222222),
 };
