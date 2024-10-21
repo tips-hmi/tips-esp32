@@ -10,6 +10,12 @@ class DoorScene : public Scene {
  public:
   DoorScene(const TeslaVehicle &vehicle) : _vehicle(vehicle) {}
 
+  bool allDoorsClosed() const {
+    return !_vehicle.hasDoorOpen() && _lastAllDoorsClosedTime > 0 &&
+           millis() - _lastAllDoorsClosedTime > 500;
+  }
+
+ protected:
   MXObject *vehicleContainer;
   MXObject *vehicleImage;
   MXObject *frontLeftDoorImage;
@@ -17,12 +23,6 @@ class DoorScene : public Scene {
   MXObject *rearLeftDoorImage;
   MXObject *rearRightDoorImage;
 
-  bool allDoorsClosed() const {
-    return !_vehicle.hasDoorOpen() && _lastAllDoorsClosedTime > 0 &&
-           millis() - _lastAllDoorsClosedTime > 500;
-  }
-
- protected:
   void onInit() override {
     Scene::onInit();
     vehicleContainer = &mx(this)->container().size(220, 268).center();
