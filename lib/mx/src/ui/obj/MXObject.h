@@ -270,6 +270,11 @@ class MXObject {
     return *this;
   }
 
+  MXObject& non_scrollable() {
+    lv_obj_clear_flag(_internalObj, LV_OBJ_FLAG_SCROLLABLE);
+    return *this;
+  }
+
   // Events
   MXObject& onClick(lv_event_cb_t cb) {
     lv_obj_add_event_cb(_internalObj, cb, LV_EVENT_CLICKED, _scene);
