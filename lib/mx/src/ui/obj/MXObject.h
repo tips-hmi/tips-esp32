@@ -46,6 +46,12 @@ class MXObject {
     return *this;
   }
 
+  MXObject& image(const lv_img_dsc_t* img) {
+    _internalObj = lv_img_create(_internalObj);
+    src(img);
+    return *this;
+  }
+
   MXObject& image(const String imageSrc) {
     image(imageSrc.c_str());
     return *this;
@@ -310,6 +316,10 @@ class MXObject {
   const void* src() { return lv_img_get_src(_internalObj); }
   MXObject& src(const char* path) {
     lv_img_set_src(_internalObj, path);
+    return *this;
+  }
+  MXObject& src(const lv_img_dsc_t* img) {
+    lv_img_set_src(_internalObj, img);
     return *this;
   }
 

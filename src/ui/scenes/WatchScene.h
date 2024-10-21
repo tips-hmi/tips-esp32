@@ -8,8 +8,6 @@
 #include "ui/watch/WatchFace.h"
 #include "utils/time_util.h"
 
-void handleClick(lv_event_t *e);
-
 class WatchScene : public Scene {
  public:
   WatchScene(const TeslaVehicle &vehicle) : _vehicle(vehicle) {}
@@ -57,16 +55,16 @@ class WatchScene : public Scene {
 
     _applyWatchFace(_watchFace);
 
-    mx(this)->onGesture([](lv_event_t *e) {
-      lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+    // mx(this)->onGesture([](lv_event_t *e) {
+    //   lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
 
-      WatchScene *scene = static_cast<WatchScene *>(e->user_data);
-      if (dir == LV_DIR_RIGHT) {
-        scene->previousWatchFace();
-      } else if (dir == LV_DIR_LEFT) {
-        scene->nextWatchFace();
-      }
-    });
+    //   WatchScene *scene = static_cast<WatchScene *>(e->user_data);
+    //   if (dir == LV_DIR_RIGHT) {
+    //     scene->previousWatchFace();
+    //   } else if (dir == LV_DIR_LEFT) {
+    //     scene->nextWatchFace();
+    //   }
+    // });
   }
 
   void onUpdate() override {
@@ -89,9 +87,8 @@ class WatchScene : public Scene {
   WatchFace *_watchFace = watchFaces[_watchFaceIndex];
 
   void _applyWatchFace(WatchFace *watchFace) {
-    // backgroundImage->src(String("A:/watch-face-") +
-    // watchFace->backgroundImage +
-    //                      ".png");
+    backgroundImage->src(String("A:/watch-face-") + watchFace->backgroundImage +
+                         ".png");
     timeLabel->text_color(watchFace->timeColor);
     timeLabel->font(watchFace->timeFont);
     if (watchFace->timeX == 0 && watchFace->timeY == 0) {
