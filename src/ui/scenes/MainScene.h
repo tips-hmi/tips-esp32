@@ -35,20 +35,20 @@ class MainScene : public Scene {
 
     timeLabel = &mx(this)
                      ->label()
-                     .x(64)
-                     .y(60)
+                     .x(70)
+                     .y(62)
                      .text_color(theme.secondaryTextColor)
                      .text_letter_space(2)
-                     .font(&lv_font_montserrat_24);
+                     .font(&lv_font_montserrat_28);
     temperatureLabel = &mx(this)
                             ->label()
                             .x(194)
-                            .y(60)
+                            .y(62)
                             .w(100)
                             .text_color(theme.secondaryTextColor)
                             .text_letter_space(2)
                             .text_align(LV_TEXT_ALIGN_RIGHT)
-                            .font(&lv_font_montserrat_24);
+                            .font(&lv_font_montserrat_28);
     mx(this)->hr_line(256, 100).center_x().line_color(0x555555);
     speedLabel = &mx(this)
                       ->label()
